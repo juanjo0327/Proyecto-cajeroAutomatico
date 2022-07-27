@@ -1,0 +1,15 @@
+#bienvenido{
+    color: black;
+}
+
+h3, h2{
+    display: inline;
+}
+
+#monto{
+    margin-left: 15px;
+}
+
+#formulario{
+    margin-top: 20px;
+}
