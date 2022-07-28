@@ -14,7 +14,7 @@ const login = () => {
     if(usuario.value != '' && pass.value != ''){
         for(const key in users){
             if(users[key].user == usuario.value && users[key].password == pass.value){
-                window.open('http://127.0.0.1:5500/cajeroAutomatico/src/components/perfil/perfil.html', "_self");
+                window.open('http://127.0.0.1:5500/src/components/perfil/perfil.html', "_self");
                 localStorage.setItem('usuario', users[key].user);
                 localStorage.setItem('password', users[key].password)
                 localStorage.setItem('saldo', users[key].saldo)

@@ -4,6 +4,8 @@
 
 h3, h2{
     display: inline;
+    margin-top: 40px;
+    line-height: 2;
 }
 
 #monto{
@@ -12,4 +14,12 @@ h3, h2{
 
 #formulario{
     margin-top: 20px;
+}
+
+#consultar:hover, #ingresar:hover, #retirar:hover, #salir:hover{
+    cursor: pointer;
+}
+
+#nuevoMonto{
+    display: inline;
 }
