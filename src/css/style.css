@@ -32,7 +32,7 @@ h2{
     margin-bottom: 25px;
 }
 
-#user{
+#usuario{
     display: block;
     background-color: rgb(255, 132, 17);
     width: 14.5vw;
@@ -44,7 +44,7 @@ h2{
     padding-left: 10px;
 }
 
-#password{
+#contraseña{
     display: block;
     background-color: rgb(255, 132, 17);
     width: 14.5vw;

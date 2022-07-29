@@ -1,31 +1,28 @@
-var usuario = document.getElementById('user')
-var pass = document.getElementById('password')
+var usuario = document.getElementById('usuario')
+var contraseña = document.getElementById('contraseña')
 var enviar = document.getElementById('enviar')
 
 
-var users = [
-    {user: 'Mali', password: '123', saldo: 200},
-    {user: 'Gera', password: '1234', saldo: 290},
-    {user: 'Maui', password: '12', saldo: 67},
-    {user: 'juan', password: 'hola123', saldo: 400}
+var perfiles = [
+    {nombreUsuario: 'mali', contraseñaUsuario: '12', saldo: 200},
+    {nombreUsuario: 'Gera', contraseñaUsuario: '123', saldo: 290},
+    {nombreUsuario: 'maui', contraseñaUsuario: '1234', saldo: 67},
+    {nombreUsuario: 'juan', contraseñaUsuario: '1234', saldo: 400},
+
 ]
 
 const login = () => {
-    if(usuario.value != '' && pass.value != ''){
-        for(const key in users){
-            if(users[key].user == usuario.value && users[key].password == pass.value){
-                window.open('http://127.0.0.1:5500/src/components/perfil/perfil.html', "_self");
-                localStorage.setItem('usuario', users[key].user);
-                localStorage.setItem('password', users[key].password)
-                localStorage.setItem('saldo', users[key].saldo)
-            }
-            // else if(users[key].user != usuario.value){
-            //    if(users[key].user != usuario.value){
-            //         alert('Usuario incorrecto, verifique el usuario')
-            //     }else{
-            //         alert('Contraseña Incorrecta, verifique la contraseña')
-            //     }
-            // }
+    if(usuario.value != '' && contraseña.value != ''){
+        
+        //Obtengo si el usuario y la contraseña que se ingreso coincide con alguno del array
+        let credenciales = perfiles.find(credencial => credencial.nombreUsuario == usuario.value && credencial.contraseñaUsuario == contraseña.value)
+        if(credenciales != null){
+            window.open('http://127.0.0.1:5500/src/components/perfil/perfil.html', "_self");
+            localStorage.setItem('usuario', credenciales.nombreUsuario);
+            localStorage.setItem('password', credenciales.contraseñaUsuario)
+            localStorage.setItem('saldo', credenciales.saldo)
+        }else{
+            alert('ERROR!, Credenciales incorrectos, favor de ingresar los correctos nuevamente')
         }
     }else{
         if(usuario.value == ''){
@@ -36,10 +33,9 @@ const login = () => {
     }
 }
 
-
 enviar.addEventListener('click', (event) => {
     event.preventDefault()
     login()
     usuario.value = '';
-    pass.value = '';
+    contraseña.value = '';
 })

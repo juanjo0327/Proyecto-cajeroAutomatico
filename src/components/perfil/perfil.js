@@ -1,16 +1,19 @@
+//Datos del Local Storage
 var usuario = localStorage.getItem('usuario');
-var password = localStorage.getItem('password');
 var saldo = localStorage.getItem('saldo');
 
+//Datos del Navbar
 const bienvenido = document.getElementById('bienvenido');
 const consultar = document.getElementById('consultar');
-const contenido = document.getElementById('contenido');
 const ingresar = document.getElementById('ingresar');
 const retirar = document.getElementById('retirar');
-const nuevoMonto = document.getElementById('nuevoMonto');
 const salir = document.getElementById('salir')
 
 
+const contenido = document.getElementById('contenido');
+const nuevoMonto = document.getElementById('nuevoMonto');
+
+//Datos por default al cargar la pagina
 bienvenido.textContent = 'Bienvenid@, ' + usuario;
 
 consultar.style.backgroundColor = 'rgb(105, 255, 214)';
@@ -22,6 +25,7 @@ contenido.innerHTML = `
     <h3>El saldo actual de tu cuenta es:</h3><h2 class="dinero" id="monto">${saldo}</h2>
 `;
 
+//Evento de Consultar
 consultar.addEventListener('click', (event) => {
     event.preventDefault();
     var nuevoSaldo = localStorage.getItem('saldo');
@@ -37,6 +41,7 @@ consultar.addEventListener('click', (event) => {
     nuevoMonto.innerHTML = ``;
 })
 
+//Evento de Ingresar Dinero
 ingresar.addEventListener('click', (event) => {
     event.preventDefault();
     ingresar.style.backgroundColor = 'rgb(105, 255, 214)';
@@ -44,13 +49,12 @@ ingresar.addEventListener('click', (event) => {
     consultar.style.backgroundColor = '';
     retirar.style.backgroundColor = '';
 
-
     contenido.innerHTML = `
         <h3 id="bienvenidoIngresar">Bienvenido a la interfaz de Ingresar Dinero</h3>
 
         <form id="formulario">
             <span>Ingresa el monto a depositar: </span>
-            <input type="text" onkeypress="return event.charCode>=48 && event.charCode<=57" placeholder="Ingresar monto" id="montoIngresar">
+            <input type="text" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" id="montoIngresar">
             <input type="button" value="depositar" id="depositar">
             <input type="button" value="borrar" id="borrar">
         </form>
@@ -61,18 +65,16 @@ ingresar.addEventListener('click', (event) => {
     var deposito = document.getElementById('depositar')
     var borrar = document.getElementById('borrar')
 
-
     deposito.addEventListener('click', (event) => {
         event.preventDefault();
         if(montoIngresar.value != ''){
             var nuevoSaldo = localStorage.getItem('saldo');
             var monto = parseInt(montoIngresar.value);
-            var res = 0;
+            var montoTotal = 0;
             var imprimirSaldo = parseInt(nuevoSaldo)
-            res = parseInt(nuevoSaldo) + monto;
+            montoTotal = parseInt(nuevoSaldo) + monto;
 
-                if( res < 991){
-
+                if( montoTotal < 991){
                     nuevoMonto.innerHTML = `
                         <div>
                             <span>Monto Anterior: <span><span> $${imprimirSaldo}<span>
@@ -81,10 +83,10 @@ ingresar.addEventListener('click', (event) => {
                             <span>Monto Ingresado: <span> <span> $${monto}<span>
                         </div>
                         <div>
-                            <span >Nuevo Saldo: <span><span>$${res}<span> 
+                            <span >Nuevo Saldo: <span><span>$${montoTotal}<span> 
                         </div>
                         `;
-                    localStorage.setItem('saldo', res)
+                    localStorage.setItem('saldo', montoTotal)
         
                     montoIngresar.value = '';
                 }else{
@@ -101,6 +103,7 @@ ingresar.addEventListener('click', (event) => {
             alert('ERROR!!!, ingrese una cantidad en el input')
         }
     })    
+    //Evento para borrar lo que contiene el input
     borrar.addEventListener('click', (event) => {
         event.preventDefault();
         montoIngresar.value = '';
@@ -108,7 +111,7 @@ ingresar.addEventListener('click', (event) => {
 })
 
 
-
+//Evento de Retiro de Dinero
 retirar.addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -122,7 +125,7 @@ retirar.addEventListener('click', (event) => {
 
         <form id="formulario">
         <span>Ingresa el monto a retirar: </span>
-        <input type="text" onkeypress="return event.charCode>=48 && event.charCode<=57" placeholder="Ingresar monto" id="montoRetirar">
+        <input type="text" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" placeholder="Ingresar monto" id="montoRetirar">
         <input type="button" value="retirar" id="retiro">
         <input type="button" value="borrar" id="borrar">
         </form>
@@ -139,11 +142,11 @@ retirar.addEventListener('click', (event) => {
         if(montoRetirar.value != ''){
             var nuevoSaldo = localStorage.getItem('saldo');
             var monto = parseInt(montoRetirar.value);
-            var res = 0;
-            res = parseInt(nuevoSaldo) - monto;
+            var montoTotal = 0;
+            montoTotal = parseInt(nuevoSaldo) - monto;
             var imprimirSaldo = parseInt(nuevoSaldo)
 
-            if( res > 10){
+            if( montoTotal > 10){
                 nuevoMonto.innerHTML = `
                     <div>
                         <span>Monto Anterior: <span><span> $${imprimirSaldo}<span>
@@ -152,10 +155,10 @@ retirar.addEventListener('click', (event) => {
                         <span>Monto Retirado: <span> <span> $${monto}<span>
                     </div>
                     <div>
-                        <span >Nuevo Saldo: <span><span>$${res}<span> 
+                        <span >Nuevo Saldo: <span><span>$${montoTotal}<span> 
                     </div>
                 `;
-                localStorage.setItem('saldo', res)
+                localStorage.setItem('saldo', montoTotal)
     
                 montoRetirar.value = '';
             }else{
@@ -170,16 +173,17 @@ retirar.addEventListener('click', (event) => {
         }else{
             alert('ERROR!!!, ingrese una cantidad en el input')
         }
-    })  
+    }) 
+    //Evento para borrar lo que contiene el input
     borrar.addEventListener('click', (event) => {
         event.preventDefault();
         montoRetirar.value = '';
     })
 })
 
+//Evento para Cerrar Sesion
 salir.addEventListener('click', (event) =>{
     event.preventDefault();
     localStorage.clear()
     window.open('http://127.0.0.1:5500/index.html', "_self");
-
 })
